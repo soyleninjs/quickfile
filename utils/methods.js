@@ -12,7 +12,7 @@ const updateWebkpack = (object, property) => {
     regex = /(const jsEntries = {[^}]+)(?=})/;
   }
 
-  const webpackConfigFilePath = path.join(__dirname, "webpack.config.js");
+  const webpackConfigFilePath = path.join(__dirname, "..", "webpack.config.js");
   const webpackFile = fs.readFileSync(webpackConfigFilePath, 'utf8');
   const updateFile = webpackFile.replace(
     regex,
