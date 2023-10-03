@@ -1,0 +1,31 @@
+{
+  "name": "quickfile",
+  "version": "0.0.1",
+  "description": "Generador de archivos predeterminados o configurables",
+  "main": "quickfile.js",
+  "devDependencies": {
+    "enquirer": "2.4.1",
+    "fs-extra": "11.1.1"
+  },
+  "scripts": {},
+  "keywords": [
+    "generator",
+    "genrate bundle",
+    "generate files",
+    "generate javascript",
+    "work with node",
+    "generate with file system",
+    "generate html",
+    "generate css"
+  ],
+  "author": "@soyleninjs",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soyleninjs/quickfile.git"
+  },
+  "bugs": {
+    "url": "https://github.com/soyleninjs/quickfile/issues"
+  },
+  "homepage": "https://github.com/soyleninjs/quickfile#readme"
+}

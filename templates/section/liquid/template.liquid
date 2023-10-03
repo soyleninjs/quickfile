@@ -1,0 +1,182 @@
+{% liquid 
+  assign image_desktop = section.settings.image_desktop
+  assign image_mobile = section.settings.image_mobile
+  assign title = section.settings.title
+  assign button_label = section.settings.button_label
+  assign button_link = section.settings.button_link
+  assign button_exists = false
+
+  if button_label != blank and button_link != blank
+    assign button_exists = true
+  endif
+%}
+
+{{- 'css-[handleNameSection].css' | asset_url | stylesheet_tag -}}
+<script src="{{ 'js-[handleNameSection].js' | asset_url }}" defer></script>
+
+<div class="[handleNameSection]-container" data-section-id="{{ section.id }}" data-section-type="section-[handleNameSection]">
+
+  {% if title != blank %}
+    <header class="[handleNameSection]-header">
+      <h2 class="[handleNameSection]-title">{{ title }}</h2>
+    </header>
+  {% endif %}
+
+  <div class="[handleNameSection]-content">
+    <div class="[handleNameSection]-image-wrapper back-img-wrapper {% if image_desktop == blank %}no-image{% endif %}">
+      {% if image_desktop != blank %}
+        <picture class="picture-wrapper">
+          {% if image_mobile != blank %}
+            <source media="(max-width: 420px)" srcset="{{ image_mobile | image_url: width: 520 }}">
+            <source media="(max-width: 680px)" srcset="{{ image_mobile | image_url: width: 780 }}">
+          {% else %}
+            <source media="(max-width: 420px)" srcset="{{ image_desktop | image_url: width: 520 }}">
+            <source media="(max-width: 680px)" srcset="{{ image_desktop | image_url: width: 780 }}">
+          {% endif %}
+          <img 
+            class="lazyload [handleNameSection]-image back-img"
+            loading="lazy"
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+            data-src="{{ image_desktop | image_url: width: 1440 }}" alt="{{ image_desktop.alt }}"
+          >
+        </picture>
+      {% endif %}
+    </div>
+      
+    <div class="[handleNameSection]-blocks">
+      {% for block in section.blocks %}
+        {% liquid 
+          assign block_image = block.settings.block_image
+          assign block_title = block.settings.block_title
+          assign block_link = block.settings.block_link
+        %}
+
+        <div class="[handleNameSection]-item">
+          {% if block_link != blank %}
+            <a class="[handleNameSection]-item-image-wrapper back-img-wrapper" href="{{ block_link }}">
+          {% else %}
+            <div class="[handleNameSection]-item-image-wrapper back-img-wrapper">
+          {% endif %}
+            {% if block_image != blank %}
+              <picture class="picture-wrapper">
+                <img 
+                  class="lazyload [handleNameSection]-item-image back-img"
+                  loading="lazy"
+                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+                  data-src="{{ block_image | image_url: width: 800 }}" alt="{{ block_image.alt }}"
+                >
+              </picture>
+            {% endif %}
+          {% if block_link != blank %}
+            </a>
+          {% else %}
+            </div>
+          {% endif %}
+
+          {% if block_title != blank %}
+            <div class="[handleNameSection]-item-title-wrapper">
+              {% if block_link != blank %}
+                <a class="[handleNameSection]-item-title" href="{{ block_link }}">{{ block_title }}</a>
+              {% else %}
+                <h3 class="[handleNameSection]-item-title">{{ block_title }}</h3>
+              {% endif %}
+            </div>
+          {% endif %}
+
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <footer class="[handleNameSection]-footer">
+    {% if button_exists %}
+      <div class="[handleNameSection]-button-wrapper">
+        <a class="[handleNameSection]-button button button-primary" href="{{ button_link }}">{{ button_label | escape }}</a>
+      </div>
+    {% endif %}
+  </footer>
+
+</div>
+
+{% schema %}
+{
+  "name": "[nameSection]",
+  "tag": "section",
+  "class": "[handleNameSection]",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Imágenes"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Imagen tamaño escritorio"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Imagen tamaño móvil"
+    },
+    {
+      "type": "header",
+      "content": "Contenido"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título"
+    },
+    {
+      "type": "header",
+      "content": "Botón"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Enlace"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Block",
+      "type": "card",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Imagen"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_image",
+          "label": "Imagen"
+        },
+        {
+          "type": "header",
+          "content": "Contenido"
+        },
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Título"
+        },
+        {
+          "type": "url",
+          "id": "block_link",
+          "label": "Enlace"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "[nameSection]"
+    }
+  ]
+}
+{% endschema %}

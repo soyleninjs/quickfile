@@ -1,0 +1,31 @@
+@media (max-width: 1439px) {
+  .[handleNameSection] {
+    --section-margin-top: 8px;
+    --section-margin-bottom: 8px;
+    --section-padding: 40px 0;
+    --header-margin-bottom: 8px;
+    --content-margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .[handleNameSection] {
+    --section-max-width: 914px;
+    --section-margin-top: 4px;
+    --section-margin-bottom: 4px;
+    --section-padding: 20px 0;
+    --header-margin-bottom: 4px;
+    --content-margin-bottom: 4px;
+  }
+}
+
+@media (max-width: 680px) {
+  .[handleNameSection] {
+    --section-max-width: 450px;
+    --section-margin-top: 2px;
+    --section-margin-bottom: 2px;
+    --section-padding: 10px 0;
+    --header-margin-bottom: 2px;
+    --content-margin-bottom: 2px;
+  }
+}
