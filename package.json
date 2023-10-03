@@ -1,6 +1,6 @@
 {
   "name": "quickfile",
-  "version": "0.0.1",
+  "version": "0.0.12",
   "description": "Generador de archivos predeterminados o configurables",
   "main": "quickfile.js",
   "devDependencies": {
